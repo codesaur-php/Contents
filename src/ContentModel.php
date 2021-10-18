@@ -9,21 +9,9 @@ use codesaur\DataObject\MultiModel;
 
 class ContentModel extends MultiModel
 {
-    function __construct(PDO $pdo, $accountForeignRef = null)
+    function __construct(PDO $pdo)
     {
         parent::__construct($pdo);
-        
-        $created_by = new Column('created_by', 'bigint', 20);
-        $updated_by = new Column('updated_by', 'bigint', 20);
-        if (!empty($accountForeignRef)) {
-            if (is_array($accountForeignRef)) {
-                call_user_func_array(array($created_by, 'foreignKey'), $accountForeignRef);
-                call_user_func_array(array($updated_by, 'foreignKey'), $accountForeignRef);
-            } else {
-                $created_by->foreignKey($accountForeignRef, 'id');
-                $updated_by->foreignKey($accountForeignRef, 'id');
-            }
-        }
         
         $this->setColumns(array(
            (new Column('id', 'bigint', 20))->auto()->primary()->unique()->notNull(),
@@ -33,9 +21,9 @@ class ContentModel extends MultiModel
             new Column('status', 'tinyint', 1, 1),
             new Column('is_active', 'tinyint', 1, 1),
             new Column('created_at', 'datetime'),
-            $created_by,
+            new Column('created_by', 'bigint', 20),
             new Column('updated_at', 'datetime'),
-            $updated_by
+            new Column('updated_by', 'bigint', 20)
         ));
         
         $this->setContentColumns(array(
@@ -54,6 +42,6 @@ class ContentModel extends MultiModel
         
         $this->setForeignKeyChecks(false);        
         ContentInitial::$method($this);        
-        $this->setForeignKeyChecks();
+        $this->setForeignKeyChecks(true);
     }
 }
