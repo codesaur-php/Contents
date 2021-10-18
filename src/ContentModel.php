@@ -40,8 +40,8 @@ class ContentModel extends MultiModel
             return;
         }
         
-        $this->setForeignKeyChecks(false);        
-        ContentInitial::$method($this);        
+        $this->setForeignKeyChecks(false);
+        ContentInitial::$method($this);
         $this->setForeignKeyChecks(true);
     }
 }
