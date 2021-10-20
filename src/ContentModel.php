@@ -35,6 +35,8 @@ class ContentModel extends MultiModel
     
     function __initial()
     {
+        parent::__initial();
+    
         $method = $this->getName();
         if (!method_exists(ContentInitial::class, $method)) {
             return;
