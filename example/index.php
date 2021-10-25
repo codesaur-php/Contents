@@ -37,7 +37,7 @@ try {
     echo "starting to use database [$database]<br/>";
     
     $content = new ContentModel($pdo);
-    $content->setTable('templates');
+    $content->setTable('templates', 'utf8_unicode_ci');
     $terms_of_service = $content->getRowBy(array('keyword' => 'tos'));
     $forgotton = $content->getRowBy(array('keyword' => 'forgotten-password-reset'));
     var_dump($terms_of_service, $forgotton);
