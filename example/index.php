@@ -15,7 +15,7 @@ require_once '../vendor/autoload.php';
 use PDO;
 use Exception;
 
-use codesaur\Contents\ContentModel;
+use codesaur\Contents\LookupModel;
 
 try {
     $dsn = 'mysql:host=localhost;charset=utf8';
@@ -36,10 +36,10 @@ try {
     $pdo->exec("USE $database");
     echo "starting to use database [$database]<br/>";
     
-    $content = new ContentModel($pdo);
-    $content->setTable('templates', 'utf8_unicode_ci');
-    $terms_of_service = $content->getRowBy(array('keyword' => 'tos'));
-    $forgotton = $content->getRowBy(array('keyword' => 'forgotten-password-reset'));
+    $templates = new LookupModel($pdo);
+    $templates->setTable('lookup_templates', 'utf8_unicode_ci');
+    $terms_of_service = $templates->getRowBy(array('keyword' => 'tos'));
+    $forgotton = $templates->getRowBy(array('keyword' => 'forgotten-password-reset'));
     var_dump($terms_of_service, $forgotton);
 } catch (Exception $ex) {
     die('<br />{' . date('Y-m-d H:i:s') . '} Error[' . $ex->getCode() . '] => ' . $ex->getMessage());

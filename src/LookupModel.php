@@ -7,7 +7,7 @@ use PDO;
 use codesaur\DataObject\Column;
 use codesaur\DataObject\MultiModel;
 
-class ContentModel extends MultiModel
+class LookupModel extends MultiModel
 {
     function __construct(PDO $pdo)
     {
@@ -17,7 +17,6 @@ class ContentModel extends MultiModel
            (new Column('id', 'bigint', 20))->auto()->primary()->unique()->notNull(),
            (new Column('keyword', 'varchar', 128))->unique(),
             new Column('type', 'int', 4, 1),
-            new Column('legend', 'int', 4, 1),
             new Column('status', 'tinyint', 1, 1),
             new Column('is_active', 'tinyint', 1, 1),
             new Column('created_at', 'datetime'),
@@ -38,12 +37,12 @@ class ContentModel extends MultiModel
         parent::__initial();
     
         $method = $this->getName();
-        if (!method_exists(ContentInitial::class, $method)) {
+        if (!method_exists(LookupInitial::class, $method)) {
             return;
         }
         
         $this->setForeignKeyChecks(false);
-        ContentInitial::$method($this);
+        LookupInitial::$method($this);
         $this->setForeignKeyChecks(true);
     }
 }
