@@ -13,7 +13,7 @@ error_reporting(E_ALL & ~E_STRICT & ~E_NOTICE);
 require_once '../vendor/autoload.php';
 
 use PDO;
-use Exception;
+use Throwable;
 
 use codesaur\Contents\LookupModel;
 
@@ -41,6 +41,6 @@ try {
     $terms_of_service = $templates->getRowBy(array('keyword' => 'tos'));
     $forgotton = $templates->getRowBy(array('keyword' => 'forgotten-password-reset'));
     var_dump($terms_of_service, $forgotton);
-} catch (Exception $ex) {
-    die('<br />{' . date('Y-m-d H:i:s') . '} Error[' . $ex->getCode() . '] => ' . $ex->getMessage());
+} catch (Throwable $e) {
+    die('<br />{' . date('Y-m-d H:i:s') . '} Error[' . $e->getCode() . '] => ' . $e->getMessage());
 }
