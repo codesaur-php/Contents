@@ -14,7 +14,7 @@ class LookupModel extends MultiModel
         parent::__construct($pdo);
         
         $this->setColumns(array(
-           (new Column('id', 'bigint', 20))->auto()->primary()->unique()->notNull(),
+           (new Column('id', 'bigint', 8))->auto()->primary()->unique()->notNull(),
            (new Column('keyword', 'varchar', 128))->unique(),
             new Column('category', 'varchar', 32),
             new Column('is_active', 'tinyint', 1, 1),
@@ -25,7 +25,7 @@ class LookupModel extends MultiModel
         ));
         
         $this->setContentColumns(array(
-            new Column('title', 'varchar', 1024),
+            new Column('title', 'varchar', 255),
             new Column('short', 'text'),
             new Column('full', 'text')
         ));
